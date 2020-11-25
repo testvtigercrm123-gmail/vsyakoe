@@ -1,5 +1,5 @@
 ```nginx
-apt install php-apcu apt install php-apcu php-redis
+apt install php-apcu redis php-redis
 systemctl enable redis-server
 systemctl restart apache2
 ```
