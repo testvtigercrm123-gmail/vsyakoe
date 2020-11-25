@@ -4,7 +4,7 @@ systemctl enable redis-server
 systemctl restart apache2
 ```
 > Docroot/config/config.php
-```
+```php
 <?php
 $CONFIG = array (
   'updatechecker' => false,
