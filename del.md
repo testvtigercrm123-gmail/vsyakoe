@@ -24,3 +24,9 @@ function copyRelatedFields($ws_entity){
   if (!$soInstance) {
       return;
   }
+
+$MCListModel = Vtiger_RelationListView_Model::getInstance($module, 'MC', 'MC');
+$pagingModel = new Vtiger_Paging_Model();
+$pagingModel->set('page', 1);
+$pagingModel->set('limit', 30);
+$entries = $MCListModel->getEntries($pagingModel);
