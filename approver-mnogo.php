@@ -18,14 +18,14 @@ while ($row = $result->GetNext()){
 
 $arrGolosyuwie = $rootActivity->GetVariable("Golosyuwie");
 $count_approve = count($arrApprovers, COUNT_RECURSIVE);
-//AddMessage2Log("documentType: ".print_r($arrApprovers,true),"nichego_ne_znachit");
+
 $count_golosyuwie = count($arrGolosyuwie, COUNT_RECURSIVE);
 $arrNoticed = [];
 
 if ($count_approve >= 1) {
 	for ($a = 0; $a < $count_golosyuwie; $a++) {
 			for ($i = 0; $i < $count_approve; $i++) {
-//			AddMessage2Log("result:[$a]: ".print_r($arrGolosyuwie[$a],true),"nichego_ne_znachit");
+
 			if ($arrGolosyuwie[$a] !== $arrApprovers[$i]) {
 //				$Notice_User = 'Utverd_user' . $a;
 //				if ($arrNoticed[0] !== $arrGolosyuwie[$a]) {
