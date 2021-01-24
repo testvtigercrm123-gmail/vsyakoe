@@ -25,11 +25,10 @@ $count_noticed = count($arrNoticed, COUNT_RECURSIVE);
 
 if ($count_noticed >= 1) {
 	for ($i = 0; $i < $count_noticed; $i++) {
-        $Notice_User = 'Utverd_user' . $i;
-        ob_start();
-            echo "$Notice_User";
-        $variable = ob_get_clean();        
-		$set_noticed = $rootActivity->SetVariable("$variable","$arrNoticed[$i]");	
+            $Notice_User = 'Utverd_user' . $i;
+              ob_start();
+                echo "$Notice_User";
+              $variable = ob_get_clean();        
+	    $set_noticed = $rootActivity->SetVariable("$variable","$arrNoticed[$i]");	
 	}
-    AddMessage2Log("Array: ".print_r($arrNoticed,true),"pobedil");
 }
