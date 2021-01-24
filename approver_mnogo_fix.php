@@ -1,4 +1,4 @@
-??
+<?
 $rootActivity = $this->GetRootActivity();
 global $DB;
 $workflowid = "{=Workflow:ID}";
