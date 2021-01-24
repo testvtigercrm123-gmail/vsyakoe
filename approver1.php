@@ -15,6 +15,10 @@ while ($row = $result->GetNext()){
 		}
 	}
 }
+/* Допустим 
+	arrGolosyuwie = ['user_1' ,'user_2', 'user_3'];
+	arrApprovers = ['user_2'];
+*/
 
 $arrGolosyuwie = $rootActivity->GetVariable("Golosyuwie");
 $count_approve = count($arrApprovers, COUNT_RECURSIVE);
