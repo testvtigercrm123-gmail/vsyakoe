@@ -45,7 +45,7 @@ $this->SetPropertiesTypes([
 //------------------------------
 
 
-        list($entityTypeName, $entityId) = explode('_', $this->GetDocumentId()[2]);
+        list($entityTypeName, $entityId) = explode('_', $this->GetDocumentId()[2]);  //DEAL_887
         $entityTypeId = \CCrmOwnerType::ResolveID($entityTypeName);
         $providerClassName = static::getDataProviderByEntityTypeId($entityTypeId);
         $templateId = $this->TemplateId;
