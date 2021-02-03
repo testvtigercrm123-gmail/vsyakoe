@@ -46,8 +46,8 @@ $this->SetPropertiesTypes([
 
 
         list($entityTypeName, $entityId) = explode('_', $this->GetDocumentId()[2]);  //DEAL_887
-        $entityTypeId = \CCrmOwnerType::ResolveID($entityTypeName);
-        $providerClassName = static::getDataProviderByEntityTypeId($entityTypeId);
+        $entityTypeId = \CCrmOwnerType::ResolveID($entityTypeName);                  // 2
+        $providerClassName = static::getDataProviderByEntityTypeId($entityTypeId);   // DataProvider\Deal::class;
         $templateId = $this->TemplateId;
         $template = DocumentGenerator\Template::loadById($templateId);
         // создаем по выбранному шаблону
