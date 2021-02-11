@@ -1,55 +1,38 @@
-<?
 $rootActivity = $this->GetRootActivity();
 global $DB;
+//const:-------
 $workflowid = "{=Workflow:ID}";
-$sql = "SELECT * FROM `b_bp_tracking` WHERE `workflow_id`='$workflowid' AND `action_name` = 'A6481_69712_43322_81479'";
-$result = $DB->Query($sql, false);
+$identificator = "A39269_87048_25965_76613"; // записываем идентификатор действия
 $arrApprovers = [];
+$arrRejectors = [];
+//-------------
+$sql = "SELECT * FROM `b_bp_tracking` WHERE `workflow_id`='$workflowid' AND `action_name` = '$identificator'";
+$result = $DB->Query($sql, false);
+
 while ($row = $result->GetNext()){
 	if ($row['MODIFIED_BY'] != ""){
 		if(preg_match("/одобрил/",$row['ACTION_NOTE'])){
 			$arrApprovers[] = 'user_' . $row['MODIFIED_BY'];
 		}
 		if(preg_match("/отклонил/",$row['ACTION_NOTE'])){
-		  $arrApprovers = [];
+		  $arrRejectors[] = 'user_' . $row['MODIFIED_BY'];
 		}
 	}
 }
-/* Допустим 
-	arrGolosyuwie = ['user_1' ,'user_2', 'user_3'];
-	arrApprovers = ['user_1', 'user_3'];
-*/
 
-$arrGolosyuwie = $rootActivity->GetVariable("Golosyuwie");
-$count_approve = count($arrApprovers, COUNT_RECURSIVE);
+$arrGolosyuwie = $rootActivity->GetVariable("approve");
+$arrNoticed = array_diff($arrGolosyuwie, $arrApprovers);
+$arrNoticed = array_values(array_filter($arrNoticed));
+$arrNoticed = array_diff($arrNoticed, $arrRejectors);
+$arrNoticed = array_values(array_filter($arrNoticed));
+$count_noticed = count($arrNoticed, COUNT_RECURSIVE);
 
-$count_golosyuwie = count($arrGolosyuwie, COUNT_RECURSIVE);
-$arrNoticed = [];
-
-if ($count_approve >= 1) {
-	for ($a = 0; $a < $count_golosyuwie; $a++) {
-			for ($i = 0; $i < $count_approve; $i++) {
-
-			if ($arrGolosyuwie[$a] !== $arrApprovers[$i]) {
-//				$Notice_User = 'Utverd_user' . $a;
-//				if ($arrNoticed[0] !== $arrGolosyuwie[$a]) {
-						$arrNoticed[] = $arrGolosyuwie[$a];
-//				}
-
-				AddMessage2Log("result:[$a]: ".print_r($arrGolosyuwie[$a],true),"yvedomit");
-			}
-		}
-		
-		$count_noticed = count($arrNoticed, COUNT_RECURSIVE);
-		
-		for ($b = 0; $b < $count_golosyuwie; $b++) {
-			$Notice_User = 'Utverd_user' . $b;
-			ob_start();
-				echo "$Notice_User";
-			$variable = ob_get_clean();
-				
-			$set_noticed = $rootActivity->SetVariable("$variable","$arrNoticed[$b]");
-		}
-		AddMessage2Log("Array: ".print_r($arrNoticed,true),"pobedil");
+if ($count_noticed >= 1) {
+	for ($i = 0; $i < $count_noticed; $i++) {
+                $Notice_User = 'Noticed_user' . $i;
+                  ob_start();
+                  echo "$Notice_User";
+                $variable = ob_get_clean();
+		$set_noticed = $rootActivity->SetVariable("$variable","$arrNoticed[$i]");	
 	}
 }
