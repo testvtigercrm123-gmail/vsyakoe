@@ -1,3 +1,4 @@
+<?
 $rootActivity = $this->GetRootActivity();
 global $DB;
 //const:-------
